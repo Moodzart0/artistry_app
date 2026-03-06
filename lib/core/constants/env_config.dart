@@ -1,12 +1,8 @@
 /// Environment configuration for Supabase credentials.
 ///
-/// Replace these placeholder values with your actual Supabase project
-/// credentials before running the app. In production, use
-/// `--dart-define` or a `.env` loader to inject these at build time.
-///
-/// Example build command:
+/// Credentials are injected at build/run time using `--dart-define`:
 /// ```
-/// flutter run \
+/// flutter run -d chrome \
 ///   --dart-define=SUPABASE_URL=https://your-project.supabase.co \
 ///   --dart-define=SUPABASE_ANON_KEY=your-anon-key
 /// ```
@@ -15,11 +11,15 @@ class EnvConfig {
 
   static const String supabaseUrl = String.fromEnvironment(
     'SUPABASE_URL',
-    defaultValue: 'https://your-project-ref.supabase.co',
+    defaultValue: '',
   );
 
   static const String supabaseAnonKey = String.fromEnvironment(
     'SUPABASE_ANON_KEY',
-    defaultValue: 'your-anon-key',
+    defaultValue: '',
   );
+
+  /// Returns true if Supabase credentials have been provided.
+  static bool get hasCredentials =>
+      supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 }

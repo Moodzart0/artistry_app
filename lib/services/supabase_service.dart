@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -5,6 +6,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 /// to authentication, database, and storage.
 class SupabaseService {
   SupabaseService._();
+
+  /// Whether Supabase has been successfully initialized.
+  static bool _initialized = false;
+  static bool get isInitialized => _initialized;
 
   static SupabaseClient get client => Supabase.instance.client;
 
@@ -24,14 +29,16 @@ class SupabaseService {
     await Supabase.initialize(
       url: url,
       anonKey: anonKey,
-      authOptions: const FlutterAuthClientOptions(
-        authFlowType: AuthFlowType.pkce,
+      authOptions: FlutterAuthClientOptions(
+        // Use implicit flow on web (PKCE requires server-side redirect handling).
+        authFlowType: kIsWeb ? AuthFlowType.implicit : AuthFlowType.pkce,
       ),
     );
+    _initialized = true;
   }
 
   /// Returns the currently signed-in user, or `null`.
-  static User? get currentUser => auth.currentUser;
+  static User? get currentUser => _initialized ? auth.currentUser : null;
 
   /// Returns the current user's ID, or `null`.
   static String? get currentUserId => currentUser?.id;

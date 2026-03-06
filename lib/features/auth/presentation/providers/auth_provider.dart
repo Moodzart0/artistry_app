@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
+import '../../../../services/supabase_service.dart' hide AuthState;
 import '../../data/auth_repository.dart';
 import '../../domain/auth_state.dart';
 import '../../domain/user_profile.dart';
@@ -22,6 +23,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
   StreamSubscription<dynamic>? _authSubscription;
 
   void _init() {
+    // Guard against Supabase not being initialized (e.g. bad credentials).
+    if (!SupabaseService.isInitialized) {
+      state = const AuthError(
+        message: 'Unable to connect to the server. Please try again later.',
+      );
+      return;
+    }
+
     // Listen to Supabase auth state changes.
     _authSubscription = Supabase.instance.client.auth.onAuthStateChange
         .listen((data) async {
@@ -30,6 +39,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       } else {
         state = const Unauthenticated();
       }
+    }, onError: (Object error) {
+      state = const Unauthenticated();
     });
 
     // Check if already signed in.
