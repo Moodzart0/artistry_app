@@ -7,6 +7,7 @@ import '../widgets/brush_settings_sheet.dart';
 import '../widgets/color_picker_sheet.dart';
 import '../widgets/drawing_toolbar.dart';
 import '../widgets/layer_panel.dart';
+import '../widgets/timelapse_export_dialog.dart';
 
 /// The main workspace screen with drawing canvas, toolbar, and layer management.
 class WorkspaceScreen extends StatefulWidget {
@@ -87,6 +88,12 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
                 ),
               );
             },
+          ),
+          // Timelapse export
+          IconButton(
+            icon: const Icon(Icons.timelapse),
+            tooltip: 'Export Timelapse',
+            onPressed: () => _showTimelapseExport(context),
           ),
           // Export / save info
           IconButton(
@@ -259,6 +266,18 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
     );
   }
 
+  void _showTimelapseExport(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => TimelapseExportDialog(
+        events: _controller.eventLog,
+        canvasWidth: _controller.state.canvasWidth,
+        canvasHeight: _controller.state.canvasHeight,
+      ),
+    );
+  }
+
   void _showBrushSettings(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -295,7 +314,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
             ),
             const SizedBox(height: 4),
             Text(
-              'Every stroke is being recorded for timelapse generation (Phase 4).',
+              'Every stroke is recorded. Use the timelapse button to generate a video.',
               style: TextStyle(
                 fontSize: 12,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
