@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Wrapper around the Supabase client providing typed access
@@ -44,3 +45,8 @@ class SupabaseService {
 
 /// Simple enum for auth state from the stream.
 enum AuthState { authenticated, unauthenticated }
+
+/// Riverpod provider for the Supabase client.
+final supabaseClientProvider = Provider<SupabaseClient>((ref) {
+  return SupabaseService.client;
+});

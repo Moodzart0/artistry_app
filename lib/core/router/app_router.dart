@@ -8,6 +8,10 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/profile_setup_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/auth/presentation/screens/splash_screen.dart';
+import '../../features/feed/presentation/screens/explore_screen.dart';
+import '../../features/feed/presentation/screens/home_feed_screen.dart';
+import '../../features/messaging/presentation/screens/conversations_screen.dart';
+import '../../features/profile/presentation/screens/user_profile_screen.dart';
 import '../constants/route_constants.dart';
 import '../widgets/main_shell.dart';
 
@@ -76,13 +80,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RouteConstants.home,
             pageBuilder: (context, state) => const NoTransitionPage(
-              child: _PlaceholderScreen(title: 'Feed', icon: Icons.home),
+              child: HomeFeedScreen(),
             ),
           ),
           GoRoute(
             path: RouteConstants.explore,
             pageBuilder: (context, state) => const NoTransitionPage(
-              child: _PlaceholderScreen(title: 'Explore', icon: Icons.explore),
+              child: ExploreScreen(),
             ),
           ),
           GoRoute(
@@ -95,15 +99,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RouteConstants.messages,
             pageBuilder: (context, state) => const NoTransitionPage(
-              child: _PlaceholderScreen(
-                  title: 'Messages', icon: Icons.chat_bubble_outline),
+              child: ConversationsScreen(),
             ),
           ),
           GoRoute(
             path: RouteConstants.profile,
             pageBuilder: (context, state) => const NoTransitionPage(
-              child: _PlaceholderScreen(
-                  title: 'Profile', icon: Icons.person_outline),
+              child: UserProfileScreen(),
             ),
           ),
         ],
@@ -112,7 +114,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   );
 });
 
-/// Temporary placeholder screen used for tabs not yet implemented.
+/// Temporary placeholder screen used for tabs not yet implemented (Workspace).
 class _PlaceholderScreen extends StatelessWidget {
   const _PlaceholderScreen({required this.title, required this.icon});
 
@@ -135,7 +137,7 @@ class _PlaceholderScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Coming in Phase 2+',
+              'Coming in Phase 3',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
