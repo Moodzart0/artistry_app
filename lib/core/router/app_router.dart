@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,6 +11,7 @@ import '../../features/feed/presentation/screens/explore_screen.dart';
 import '../../features/feed/presentation/screens/home_feed_screen.dart';
 import '../../features/messaging/presentation/screens/conversations_screen.dart';
 import '../../features/profile/presentation/screens/user_profile_screen.dart';
+import '../../features/workspace/presentation/screens/workspace_screen.dart';
 import '../constants/route_constants.dart';
 import '../widgets/main_shell.dart';
 
@@ -92,8 +92,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RouteConstants.workspace,
             pageBuilder: (context, state) => const NoTransitionPage(
-              child:
-                  _PlaceholderScreen(title: 'Workspace', icon: Icons.brush),
+              child: WorkspaceScreen(),
             ),
           ),
           GoRoute(
@@ -113,38 +112,3 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
-
-/// Temporary placeholder screen used for tabs not yet implemented (Workspace).
-class _PlaceholderScreen extends StatelessWidget {
-  const _PlaceholderScreen({required this.title, required this.icon});
-
-  final String title;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 64, color: Theme.of(context).colorScheme.primary),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Coming in Phase 3',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
