@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
-import '../../../../services/supabase_service.dart';
+import '../../../../services/supabase_service.dart' hide AuthState;
 import '../../data/auth_repository.dart';
 import '../../domain/auth_state.dart';
 import '../../domain/user_profile.dart';
