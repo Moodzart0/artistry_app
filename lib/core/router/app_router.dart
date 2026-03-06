@@ -11,6 +11,7 @@ import '../../features/feed/presentation/screens/explore_screen.dart';
 import '../../features/feed/presentation/screens/home_feed_screen.dart';
 import '../../features/messaging/presentation/screens/conversations_screen.dart';
 import '../../features/profile/presentation/screens/user_profile_screen.dart';
+import '../../features/events/presentation/screens/events_screen.dart';
 import '../../features/workspace/presentation/screens/workspace_screen.dart';
 import '../constants/route_constants.dart';
 import '../widgets/main_shell.dart';
@@ -93,6 +94,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: RouteConstants.workspace,
             pageBuilder: (context, state) => const NoTransitionPage(
               child: WorkspaceScreen(),
+            ),
+          ),
+          GoRoute(
+            path: RouteConstants.events,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: EventsScreen(),
             ),
           ),
           GoRoute(

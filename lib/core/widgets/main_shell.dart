@@ -14,8 +14,9 @@ class MainShell extends StatelessWidget {
     if (location.startsWith(RouteConstants.home)) return 0;
     if (location.startsWith(RouteConstants.explore)) return 1;
     if (location.startsWith(RouteConstants.workspace)) return 2;
-    if (location.startsWith(RouteConstants.messages)) return 3;
-    if (location.startsWith(RouteConstants.profile)) return 4;
+    if (location.startsWith(RouteConstants.events)) return 3;
+    if (location.startsWith(RouteConstants.messages)) return 4;
+    if (location.startsWith(RouteConstants.profile)) return 5;
     return 0;
   }
 
@@ -28,8 +29,10 @@ class MainShell extends StatelessWidget {
       case 2:
         context.go(RouteConstants.workspace);
       case 3:
-        context.go(RouteConstants.messages);
+        context.go(RouteConstants.events);
       case 4:
+        context.go(RouteConstants.messages);
+      case 5:
         context.go(RouteConstants.profile);
     }
   }
@@ -56,6 +59,11 @@ class MainShell extends StatelessWidget {
             icon: Icon(Icons.brush_outlined),
             activeIcon: Icon(Icons.brush),
             label: 'Create',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.event_outlined),
+            activeIcon: Icon(Icons.event),
+            label: 'Events',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble_outline),

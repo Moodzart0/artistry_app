@@ -12,6 +12,7 @@ class RouteConstants {
   static const String home = '/home';
   static const String explore = '/explore';
   static const String workspace = '/workspace';
+  static const String events = '/events';
   static const String messages = '/messages';
   static const String profile = '/profile';
 
